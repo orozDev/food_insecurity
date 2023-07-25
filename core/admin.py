@@ -49,7 +49,7 @@ class ProductAdmin(admin.ModelAdmin):
     def get_image(self, product):
         if product.image:
             return mark_safe(
-                f'<img src="{product.logo.url}" alt="{product.name}" width="100px" />')
+                f'<img src="{product.image.url}" alt="{product.name}" width="100px" />')
         return '-'
 
 # Register your models here.
