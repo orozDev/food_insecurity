@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from account.models import User
+from api.serializers import ProducerSerializer
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -53,6 +54,7 @@ class UserSerializer(serializers.ModelSerializer):
     first_name = serializers.CharField(required=True)
     last_name = serializers.CharField(required=True)
     get_full_name = serializers.CharField(read_only=True)
+    producer = ProducerSerializer()
 
     class Meta:
         model = User
