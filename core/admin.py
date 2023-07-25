@@ -36,7 +36,7 @@ class ProductImagesTabularInline(admin.TabularInline):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'rating', 'producer', 'is_published', 'get_image')
+    list_display = ('id', 'name', 'rating', 'producer', 'is_published')
     list_display_links = ('id', 'name',)
     list_editable = ('is_published',)
     search_fields = ('name', 'content',)
