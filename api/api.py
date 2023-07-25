@@ -2,6 +2,7 @@ from rest_framework import viewsets, filters, status
 from api.paginations import StandardResultsSetPagination
 from api.mixins import PaginationBreaker, PermissionByAction
 from django_filters.rest_framework import DjangoFilterBackend
+from django.core.files.storage import FileSystemStorage
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 
@@ -33,8 +34,9 @@ class ProductViewSet(PaginationBreaker, PermissionByAction, viewsets.ModelViewSe
         serializer.is_valid(raise_exception=True)
         product = serializer.save()
         headers = self.get_success_headers(serializer.data)
-
+        newsImageSystem = FileSystemStorage('media/product_images/')
         for image in request.data.get('images', []):
+            newsImageSystem.save(image.name, image)
             ProductImages.objects.create(product=product, image=image)
 
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
