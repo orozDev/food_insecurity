@@ -80,17 +80,3 @@ class UserViewSet(PaginationBreaker, viewsets.ReadOnlyModelViewSet):
     ordering_fields = ['created_at']
     search_fields = ['phone', 'first_name', 'last_name', 'email', 'username']
     permission_classes = (IsAuthenticated,)
-
-    def list(self, request, *args, **kwargs):
-        queryset = self.filter_queryset(self.get_queryset())
-        self._break_pagination(request)
-
-        page = self.paginate_queryset(queryset)
-        if page is not None:
-            serializer = self.get_serializer(page, many=True)
-            sorted_data = sorted(serializer.data, key=lambda item: item['points_sum'], reverse=True)
-            return self.get_paginated_response(sorted_data)
-
-        serializer = self.get_serializer(queryset, many=True)
-        sorted_data = sorted(serializer.data, key=lambda item: item['points_sum'], reverse=True)
-        return Response(sorted_data)
