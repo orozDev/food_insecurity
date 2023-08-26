@@ -79,4 +79,4 @@ class UserViewSet(PaginationBreaker, viewsets.ReadOnlyModelViewSet):
                        filters.SearchFilter]
     ordering_fields = ['created_at']
     search_fields = ['phone', 'first_name', 'last_name', 'email', 'username']
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (AllowAny,)
